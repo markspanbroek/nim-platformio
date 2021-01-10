@@ -1,6 +1,12 @@
 {
   "name": "nim-platformio",
   "version": "0.1.0",
+  "dependencies": [
+    {
+      "name": "nimbase",
+      "version": "https://github.com/markspanbroek/nimbase.git"
+    }
+  ],
   "build": {
     "extraScript": "compile.py"
   }
