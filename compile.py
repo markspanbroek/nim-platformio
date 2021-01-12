@@ -17,4 +17,6 @@ flags = \
   "--stacktrace:off "\
   "--profiler:off"
 
-system(f"nim cpp {flags} {main}")
+result = system(f"nim cpp {flags} {main}")
+if result != 0:
+  exit(result)
