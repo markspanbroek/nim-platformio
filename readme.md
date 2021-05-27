@@ -21,6 +21,25 @@ visible on the `PATH`.
 Usage
 -----
 
+Add `panicoveride.nim` to the `src` folder with the following content:
+
+```nim
+proc printf(frmt: cstring) {.varargs, importc, header: "<stdio.h>", cdecl.}
+proc exit(code: int) {.importc, header: "<stdlib.h>", cdecl.}
+
+{.push stack_trace: off, profiler:off.}
+
+proc rawoutput(s: string) =
+  printf("%s\n", s)
+
+proc panic(s: string) =
+  rawoutput(s)
+  exit(1)
+
+{.pop.}
+``` 
+and compile it with it with `nim c src/panicoveride.nim`.
+
 Add a file `main.nim` to the `src` folder of the PlatformIO project. Write your
 embedded code in this file.
 
