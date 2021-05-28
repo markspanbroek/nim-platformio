@@ -11,7 +11,7 @@ To add Nim support to a PlatformIO project, edit `platformio.ini` and add the
 following dependency:
 
 ```ini
-lib_deps = 
+lib_deps =
   https://github.com/markspanbroek/nim-platformio
 ```
 
@@ -21,29 +21,13 @@ visible on the `PATH`.
 Usage
 -----
 
-Add `panicoveride.nim` to the `src` folder with the following content:
-
-```nim
-proc printf(frmt: cstring) {.varargs, importc, header: "<stdio.h>", cdecl.}
-proc exit(code: int) {.importc, header: "<stdlib.h>", cdecl.}
-
-{.push stack_trace: off, profiler:off.}
-
-proc rawoutput(s: string) =
-  printf("%s\n", s)
-
-proc panic(s: string) =
-  rawoutput(s)
-  exit(1)
-
-{.pop.}
-``` 
-and compile it with it with `nim c src/panicoveride.nim`.
-
 Add a file `main.nim` to the `src` folder of the PlatformIO project. Write your
 embedded code in this file.
 
-Compilation of `main.nim` happens in two steps: first Nim is compiled to C++, 
+A file `panicoverride.nim` is also required. If it's not present, then this
+plugin will create it.
+
+Compilation of `main.nim` happens in two steps: first Nim is compiled to C++,
 and then these C++ files are compiled for your device. The intermediate C++
 files are generated in the `src/nimcache` folder, so you might want to add that
 folder to your `.gitignore` file.
