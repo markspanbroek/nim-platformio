@@ -12,7 +12,7 @@ if not path.exists(src/'panicoverride.nim'):
 libdeps = env.subst("$PROJECT_LIBDEPS_DIR/$PIOENV")
 
 cpu = "avr"
-if "espressif" in env.Dump():
+if "espressif" in env.subst("$PIOPLATFORM"):
   cpu = "esp"
 
 flags = (
